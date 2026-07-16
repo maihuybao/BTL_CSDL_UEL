@@ -4,10 +4,7 @@ import sqlite3
 from PyQt6 import QtWidgets, QtGui, QtCore
 from PyQt6.QtWidgets import QDialog
 
-from app.config import DB_PATH, HAS_QTA
-if HAS_QTA:
-    from app.config import qta
-from app.helpers import apply_fontawesome_icons
+from app.config import DB_PATH
 from app.dashboard import DashboardEx
 
 from Login.Login import Ui_LoginDialog
@@ -21,11 +18,9 @@ class LoginEx(QDialog):
 
         self.center_window()
         self.setup_signals()
-        apply_fontawesome_icons(self)
         # Logo app trên thẻ đăng nhập (nền gradient tròn) — biểu tượng phát trực tiếp
-        if HAS_QTA and hasattr(self.ui, "lblLogo"):
-            self.ui.lblLogo.setText("")
-            self.ui.lblLogo.setPixmap(qta.icon("fa5s.broadcast-tower", color="#ffffff").pixmap(QtCore.QSize(38, 38)))
+        if hasattr(self.ui, "lblLogo"):
+            self.ui.lblLogo.setText("📡")
             self.ui.lblLogo.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
 
     def center_window(self):

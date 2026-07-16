@@ -5,9 +5,7 @@ import sqlite3
 from PyQt6 import QtWidgets, QtGui, QtCore
 from PyQt6.QtWidgets import QTableWidgetItem, QMessageBox, QFileDialog
 
-from app.config import DB_PATH, PROJECT_ROOT, ASSETS_DIR, HAS_QTA
-if HAS_QTA:
-    from app.config import qta
+from app.config import DB_PATH, PROJECT_ROOT, ASSETS_DIR
 
 
 class ProductMixin:
@@ -60,10 +58,7 @@ class ProductMixin:
 
     def _set_product_edit_button(self, saving):
         # saving=True -> nút hiển thị "Lưu"; ngược lại "Sửa"
-        self.ui_product.btnSua.setText("Lưu" if saving else "Sửa")
-        if HAS_QTA:
-            self.ui_product.btnSua.setIcon(
-                qta.icon('fa5s.save' if saving else 'fa5s.edit', color='white'))
+        self.ui_product.btnSua.setText("💾 Lưu lại" if saving else "✏️ Sửa đổi")
 
     def _product_reset_mode(self):
         self._product_action = None

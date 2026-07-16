@@ -133,27 +133,64 @@ class StatisticsMixin:
             QMessageBox.critical(self, "Lỗi", f"Không thể lưu file Excel: {e}")
 
     # --- BIỂU ĐỒ QTCHARTS (Dashboard + Statistics) ---
+    def _wrap_stats_card(self, inner_layout, idx):
+        """Bọc một khối (title + nội dung) vào QFrame nền trắng bo góc, đặt lại vào layoutReports."""
+        reports = self.ui_statistics.layoutReports
+        pos = reports.indexOf(inner_layout)
+        if pos < 0:
+            return None
+        reports.removeItem(inner_layout)
+        card = QtWidgets.QFrame(parent=self.page_statistics)
+        card.setObjectName(f"statsCard{idx}")
+        card.setStyleSheet(
+            "QFrame#statsCard%d { background-color: #ffffff;"
+            " border: 1px solid #e9d5ff; border-radius: 12px; }" % idx
+        )
+        card.setLayout(inner_layout)
+        inner_layout.setContentsMargins(16, 14, 16, 16)
+        reports.insertWidget(pos, card)
+        return card
+
     def refactor_statistics_ui(self):
-        """Tối ưu bố cục trang Thống kê: xếp dọc (KPI -> biểu đồ full-width -> bảng chi tiết),
-        bảng canh số phải, xen màu, dòng thoáng. Chỉ chỉnh runtime, không đụng file .ui."""
+        """Bố cục trang Thống kê: xếp dọc (KPI -> biểu đồ -> bảng chi tiết), mỗi khối trong
+        card trắng như Dashboard; nén biểu đồ để bảng rộng hơn. Chỉ chỉnh runtime, không đụng .ui."""
         us = self.ui_statistics
         reports = us.layoutReports  # QHBox: [khối bảng | khối biểu đồ] -> chuyển sang dọc
         if reports.count() >= 2:
             reports.setDirection(QtWidgets.QBoxLayout.Direction.TopToBottom)
             reports.setSpacing(16)
-            chart_item = reports.takeAt(1)   # khối biểu đồ đang ở cột phải
-            reports.insertItem(0, chart_item)  # đưa lên trên, bảng xuống dưới -> đọc xu hướng trước
+            chart_item = reports.takeAt(1)      # khối biểu đồ đang ở cột phải
+            reports.insertItem(0, chart_item)   # đưa lên trên, bảng xuống dưới -> đọc xu hướng trước
 
-        # Biểu đồ full-width cần cao hơn để dễ đọc
-        us.frameChart.setMinimumHeight(300)
+        # 2 biểu đồ gọn trong 1 card trắng (như Dashboard); bảng chi tiết trong 1 card riêng
+        self._wrap_stats_card(us.verticalLayout_chart, 0)
+        self._wrap_stats_card(us.verticalLayout_table, 1)
+        # In đậm 2 tiêu đề khối
+        for lbl in (getattr(us, "lblChartTitle", None), getattr(us, "lblTableTitle", None)):
+            if lbl is not None:
+                f = lbl.font(); f.setBold(True); f.setPointSize(max(f.pointSize(), 13)); lbl.setFont(f)
+                lbl.setStyleSheet("color: #1e293b;")
 
-        # Bảng chi tiết: chọn theo dòng, không sửa tay, xen màu, dòng thoáng
+        # Nén biểu đồ (cao vừa phải) để dành phần cao còn lại cho bảng
+        us.frameChart.setMinimumHeight(0)
+        us.frameChart.setMaximumHeight(300)
+        # frameChart nằm trong statsCard0 -> bỏ viền/nền riêng, tránh 2 lớp card lồng nhau
+        us.frameChart.setStyleSheet("QFrame#frameChart { background: transparent; border: none; }")
+        # card biểu đồ giữ nguyên chiều cao, card bảng giãn chiếm phần dư
+        reports.setStretch(0, 0)
+        reports.setStretch(1, 1)
+
+        # Bảng chi tiết: chọn theo dòng, không sửa tay, xen màu, dòng thoáng, nền trong suốt lộ card
         tbl = us.tblStatistics
         tbl.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectionBehavior.SelectRows)
         tbl.setSelectionMode(QtWidgets.QAbstractItemView.SelectionMode.SingleSelection)
         tbl.setEditTriggers(QtWidgets.QAbstractItemView.EditTrigger.NoEditTriggers)
         tbl.setAlternatingRowColors(True)
-        tbl.setStyleSheet(tbl.styleSheet() + "\nQTableWidget { alternate-background-color: #faf5ff; }")
+        tbl.setStyleSheet(
+            "QTableWidget { background-color: transparent; border: none;"
+            " gridline-color: #eef2f7; alternate-background-color: #faf5ff; }"
+        )
+        tbl.setMinimumHeight(240)
         tbl.verticalHeader().setVisible(False)
         tbl.verticalHeader().setDefaultSectionSize(38)
         hh = tbl.horizontalHeader()

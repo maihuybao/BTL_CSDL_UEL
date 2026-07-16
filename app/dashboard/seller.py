@@ -4,9 +4,7 @@ import sqlite3
 from PyQt6 import QtWidgets, QtGui, QtCore
 from PyQt6.QtWidgets import QTableWidgetItem, QMessageBox
 
-from app.config import DB_PATH, HAS_QTA
-if HAS_QTA:
-    from app.config import qta
+from app.config import DB_PATH
 
 
 class SellerMixin:
@@ -27,10 +25,7 @@ class SellerMixin:
                 w.setEnabled(enabled)
 
     def _set_seller_edit_button(self, saving):
-        self.ui_seller.btnSua.setText("Lưu" if saving else "Sửa")
-        if HAS_QTA:
-            self.ui_seller.btnSua.setIcon(
-                qta.icon('fa5s.save' if saving else 'fa5s.edit', color='white'))
+        self.ui_seller.btnSua.setText("💾 Lưu lại" if saving else "✏️ Sửa đổi")
 
     def _seller_reset_mode(self):
         self._seller_action = None

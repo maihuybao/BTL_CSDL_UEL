@@ -47,7 +47,7 @@ pyuic6 ui/Product/Product.ui -o ui/Product/Product.py   # biên dịch lại UI 
 
 ## Quy tắc UI
 
-- **Không dùng emoji trong UI/code** (nhãn nút, tiêu đề, thông báo, print). Thay bằng icon từ thư viện `qtawesome` (Font Awesome cho Qt): `qta.icon('fa5s.plus')`, `fa5s.edit`, `fa5s.trash`, `fa5s.search`, `fa5s.save`, `fa5s.sync`, `fa5s.file-excel`... Emoji còn sót trong file `.ui`/`*.py` sinh tự động sẽ được `apply_fontawesome_icons()` trong `Main_Controller.py` thay thế lúc runtime — nút mới thêm phải đăng ký vào đó.
+- **Dùng emoji trong UI** (nhãn nút, tiêu đề, badge). Emoji gốc nằm sẵn trong file `.ui`/`*.py` sinh bởi pyuic6. `apply_fontawesome_icons()` và `strip_emoji()` trong `app/helpers.py` giờ là **no-op** (giữ nguyên emoji, không thay bằng qtawesome). Icon set bằng code (badge tròn tab, logo sidebar/login, nút Sửa/Lưu toggle "✏️ Sửa đổi"/"💾 Lưu lại") dùng trực tiếp emoji qua `setText()`. `qtawesome` không còn được dùng — có thể gỡ khỏi deps nếu muốn.
 
 ## Lưu ý đã biết
 

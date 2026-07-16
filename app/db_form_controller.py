@@ -7,9 +7,7 @@ import sqlite3
 from PyQt6 import QtWidgets, QtGui, QtCore
 from PyQt6.QtWidgets import QTableWidgetItem, QMessageBox
 
-from app.config import DB_PATH, HAS_QTA, current_dir
-if HAS_QTA:
-    from app.config import qta
+from app.config import DB_PATH, current_dir
 from app.helpers import get_widget_value, set_widget_value
 from app.db_logic import apply_order_status_effects, recalc_order_total
 
@@ -66,14 +64,7 @@ class DbFormController(QtCore.QObject):
         # Nút Sửa toggle thành Lưu: đang sửa/thêm -> "Lưu", ngược lại -> "Sửa"
         if hasattr(self.ui, 'btnSua'):
             self.ui.btnSua.setEnabled(True)
-            if enabled:
-                self.ui.btnSua.setText("Lưu")
-                if HAS_QTA:
-                    self.ui.btnSua.setIcon(qta.icon('fa5s.save', color='white'))
-            else:
-                self.ui.btnSua.setText("Sửa")
-                if HAS_QTA:
-                    self.ui.btnSua.setIcon(qta.icon('fa5s.edit', color='white'))
+            self.ui.btnSua.setText("💾 Lưu lại" if enabled else "✏️ Sửa đổi")
         # Ẩn nút Lưu riêng — mọi submit đi qua nút Sửa/Lưu đã toggle
         if hasattr(self.ui, 'btnLuu'):
             self.ui.btnLuu.setVisible(False)

@@ -8,9 +8,7 @@ import sqlite3
 from PyQt6 import QtWidgets, QtGui, QtCore
 from PyQt6.QtWidgets import QMainWindow, QWidget, QTableWidgetItem, QMessageBox
 
-from app.config import DB_PATH, PROJECT_ROOT, HAS_QTA
-if HAS_QTA:
-    from app.config import qta
+from app.config import DB_PATH, PROJECT_ROOT
 from app.helpers import apply_fontawesome_icons, get_widget_value, set_widget_value
 from app.db_logic import ensure_schema
 from app.db_form_controller import DbFormController
@@ -72,57 +70,51 @@ class BaseMixin:
         self.setup_tab_badges()
 
     def setup_tab_badges(self):
-        """Gắn icon Font Awesome (trắng) vào badge tròn gradient ở đầu mỗi tab."""
-        if not HAS_QTA:
-            return
+        """Gắn emoji vào badge tròn gradient ở đầu mỗi tab (khôi phục emoji thay icon Font Awesome)."""
         badges = {
-            "ui_seller": "fa5s.user-tie",
-            "ui_product": "fa5s.box-open",
-            "ui_customer": "fa5s.users",
-            "ui_livestream": "fa5s.video",
-            "ui_livestream_detail": "fa5s.list-alt",
-            "ui_comment": "fa5s.comments",
-            "ui_order": "fa5s.shopping-cart",
-            "ui_order_detail": "fa5s.clipboard-list",
-            "ui_payment": "fa5s.credit-card",
-            "ui_voucher": "fa5s.ticket-alt",
-            "ui_statistics": "fa5s.chart-bar",
+            "ui_seller": "👤",
+            "ui_product": "📦",
+            "ui_customer": "👥",
+            "ui_livestream": "🎥",
+            "ui_livestream_detail": "📋",
+            "ui_comment": "💬",
+            "ui_order": "🛒",
+            "ui_order_detail": "📝",
+            "ui_payment": "💳",
+            "ui_voucher": "🎟️",
+            "ui_statistics": "📈",
         }
-        for ui_attr, icon_name in badges.items():
+        for ui_attr, emoji in badges.items():
             ui_page = getattr(self, ui_attr, None)
             badge = getattr(ui_page, "lblIconBadge", None) if ui_page else None
             if badge is None:
                 continue
-            badge.setText("")
-            pix = qta.icon(icon_name, color="#ffffff").pixmap(QtCore.QSize(24, 24))
-            badge.setPixmap(pix)
+            badge.setText(emoji)
             badge.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
 
         # Logo thương hiệu ở sidebar (nền gradient tròn) — biểu tượng phát trực tiếp
         if hasattr(self.ui, "lblSidebarLogo"):
-            self.ui.lblSidebarLogo.setText("")
-            self.ui.lblSidebarLogo.setPixmap(qta.icon("fa5s.broadcast-tower", color="#ffffff").pixmap(QtCore.QSize(30, 30)))
+            self.ui.lblSidebarLogo.setText("📡")
             self.ui.lblSidebarLogo.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
 
-        # Badge icon tròn màu cho các thẻ số liệu tổng quan trên Dashboard
+        # Badge emoji tròn màu cho các thẻ số liệu tổng quan trên Dashboard
         cards = {
-            "lblCardCustomerIcon": ("fa5s.users", "#8b5cf6"),
-            "lblCardLivestreamIcon": ("fa5s.video", "#ec4899"),
-            "lblCardProductIcon": ("fa5s.box-open", "#f59e0b"),
-            "lblCardOrderIcon": ("fa5s.shopping-cart", "#3b82f6"),
-            "lblCardRevenueIcon": ("fa5s.coins", "#10b981"),
-            "lblCardVoucherIcon": ("fa5s.ticket-alt", "#ef4444"),
+            "lblCardCustomerIcon": ("👥", "#8b5cf6"),
+            "lblCardLivestreamIcon": ("🎥", "#ec4899"),
+            "lblCardProductIcon": ("📦", "#f59e0b"),
+            "lblCardOrderIcon": ("🛒", "#3b82f6"),
+            "lblCardRevenueIcon": ("💰", "#10b981"),
+            "lblCardVoucherIcon": ("🎟️", "#ef4444"),
         }
-        for lbl_name, (icon_name, color) in cards.items():
+        for lbl_name, (emoji, color) in cards.items():
             lbl = getattr(self.ui, lbl_name, None)
             if lbl is None:
                 continue
-            lbl.setText("")
+            lbl.setText(emoji)
             lbl.setMinimumSize(QtCore.QSize(44, 44))
             lbl.setMaximumSize(QtCore.QSize(44, 44))
-            lbl.setPixmap(qta.icon(icon_name, color="#ffffff").pixmap(QtCore.QSize(22, 22)))
             lbl.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-            lbl.setStyleSheet(f"background-color: {color}; border-radius: 22px;")
+            lbl.setStyleSheet(f"background-color: {color}; border-radius: 22px; font-size: 20px;")
 
         self.style_dashboard_panels()
 

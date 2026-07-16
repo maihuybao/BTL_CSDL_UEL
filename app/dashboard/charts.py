@@ -32,9 +32,9 @@ class ChartsMixin:
             layout.addWidget(view)
             return view
 
-        # Dashboard: bar doanh thu + pie số đơn — giới hạn cao để cân đối với 2 bảng bên dưới
-        self._chart_views['dash_revenue'] = make_view(self.ui.verticalLayout_chart1, self.ui.lblChart1Placeholder, max_height=260)
-        self._chart_views['dash_orders'] = make_view(self.ui.verticalLayout_chart2, self.ui.lblChart2Placeholder, max_height=260)
+        # Dashboard: bar doanh thu + pie số đơn — giãn lấp đầy card (không giới hạn cao, tránh khoảng trắng khi phóng to)
+        self._chart_views['dash_revenue'] = make_view(self.ui.verticalLayout_chart1, self.ui.lblChart1Placeholder)
+        self._chart_views['dash_orders'] = make_view(self.ui.verticalLayout_chart2, self.ui.lblChart2Placeholder)
 
         # Statistics: bar doanh thu theo livestream + pie doanh thu theo sản phẩm (đặt cạnh nhau)
         stats_row = QtWidgets.QHBoxLayout()
