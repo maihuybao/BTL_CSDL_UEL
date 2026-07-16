@@ -1,8 +1,13 @@
 # Kiểm tra logic đồng bộ tồn kho + hóa đơn theo trạng thái đơn hàng.
-# Chạy: python test_order_sync.py
+# Chạy: python scripts/test_order_sync.py
+import os
+import sys
 import sqlite3
 
-from Main_Controller import apply_order_status_effects, recalc_order_total
+# Cho phép import Main_Controller (ở gốc dự án, thư mục cha của scripts/)
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+from main import apply_order_status_effects, recalc_order_total
 
 
 def make_db():

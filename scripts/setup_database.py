@@ -3,9 +3,13 @@ import sqlite3
 
 
 def run_setup():
-    # Tên file script SQL và file DB đầu ra
-    sql_file_path = "Bang.sql"
-    db_file_path = "data_db.sqlite"
+    # Neo theo gốc dự án (thư mục cha của scripts/) để chạy được từ mọi thư mục
+    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    sql_file_path = os.path.join(base_dir, "Bang.sql")
+    # DB đầu ra nằm trong database/
+    db_dir = os.path.join(base_dir, "database")
+    os.makedirs(db_dir, exist_ok=True)
+    db_file_path = os.path.join(db_dir, "data_db.sqlite")
 
     # 1. Kiểm tra sự tồn tại của file Bang.sql
     if not os.path.exists(sql_file_path):

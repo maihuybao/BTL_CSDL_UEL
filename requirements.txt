@@ -1,0 +1,8 @@
+# PyQt6-Charts phải CÙNG minor version với PyQt6, lệch sẽ lỗi dlopen
+PyQt6==6.10.0
+PyQt6-Charts==6.10.0
+openpyxl>=3.1
+qtawesome>=1.3
+
+# Chỉ cần cho scripts/Manager.py (kết nối SQL Server — di sản, app không dùng):
+# pyodbc>=5.0
