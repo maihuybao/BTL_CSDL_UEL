@@ -7,8 +7,13 @@ import os
 import sys
 import re as _re
 
-# Gốc dự án = thư mục cha của app/ (app/config.py -> app/ -> gốc)
-PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# Gốc dự án: khi đóng gói PyInstaller (sys.frozen) thì __file__ trỏ vào thư mục
+# tạm _MEIPASS, không phải nơi chứa exe. Ảnh/DB nằm CẠNH exe -> lấy theo
+# sys.executable để đọc/ghi được thư mục ngoài. Khi chạy dev: cha của app/.
+if getattr(sys, "frozen", False):
+    PROJECT_ROOT = os.path.dirname(os.path.abspath(sys.executable))
+else:
+    PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Bảo đảm import được các package UI (đã gom vào ui/) và mã ở gốc dự án
 if PROJECT_ROOT not in sys.path:
