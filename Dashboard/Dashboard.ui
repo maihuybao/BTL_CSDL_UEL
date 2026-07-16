@@ -1,0 +1,1024 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1200</width>
+    <height>800</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>LIVE SALE MANAGER - Hệ thống quản lý livestream</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">
+    QMainWindow {
+        background: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 #f5f3ff, stop:0.5 #fdf4ff, stop:1 #fff7ed);
+    }
+    QWidget#centralwidget {
+        background: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 #f5f3ff, stop:0.5 #fdf4ff, stop:1 #fff7ed);
+    }
+    QFrame#widgetSidebar {
+        background: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 #1e1b4b, stop:1 #4c1d95);
+        max-width: 240px;
+        min-width: 240px;
+    }
+    QLabel#lblSidebarTitle {
+        color: #ffffff;
+        font-size: 16px;
+        font-weight: bold;
+    }
+    QLabel#lblSidebarSubtitle {
+        color: #c4b5fd;
+        font-size: 11px;
+    }
+    QPushButton.menu-btn {
+        background-color: transparent;
+        color: #ddd6fe;
+        border: none;
+        border-radius: 6px;
+        padding: 10px 15px;
+        text-align: left;
+        font-size: 13px;
+        font-weight: 500;
+        margin: 2px 10px;
+    }
+    QPushButton.menu-btn:hover {
+        background-color: rgba(255, 255, 255, 25);
+        color: #ffffff;
+    }
+    QPushButton.menu-btn:checked {
+        background: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 #a855f7, stop:1 #ec4899);
+        color: #ffffff;
+    }
+    QPushButton#btnMenuLogout {
+        color: #fca5a5;
+    }
+    QPushButton#btnMenuLogout:hover {
+        background-color: #7f1d1d;
+        color: #ffffff;
+    }
+    QFrame#frameHeader {
+        background-color: #ffffff;
+        border-bottom: 1px solid #e9d5ff;
+        max-height: 60px;
+        min-height: 60px;
+    }
+    QLabel#lblHeaderTitle {
+        font-size: 18px;
+        font-weight: bold;
+        color: #4c1d95;
+    }
+    QLabel#lblUserScope {
+        font-size: 13px;
+        color: #64748b;
+    }
+    QFrame.stats-card {
+        background-color: #ffffff;
+        border-radius: 12px;
+        border: 1px solid #f3e8ff;
+    }
+    QLabel.card-num {
+        font-size: 24px;
+        font-weight: bold;
+    }
+    QLabel.card-title {
+        font-size: 12px;
+        color: #64748b;
+        font-weight: 500;
+    }
+    QLabel.card-icon {
+        font-size: 22px;
+        min-width: 46px;
+        max-width: 46px;
+        min-height: 46px;
+        max-height: 46px;
+        border-radius: 23px;
+        background: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 #a855f7, stop:1 #ec4899);
+    }
+    QFrame#cardCustomer { border-left: 4px solid #ec4899; }
+    QFrame#cardLivestream { border-left: 4px solid #7c3aed; }
+    QFrame#cardProduct { border-left: 4px solid #10b981; }
+    QFrame#cardOrder { border-left: 4px solid #f59e0b; }
+    QFrame#cardRevenue { border-left: 4px solid #22d3ee; }
+    QFrame#cardVoucher { border-left: 4px solid #fb923c; }
+    
+    QTableWidget {
+        background-color: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        gridline-color: #f1f5f9;
+    }
+    QTableWidget::item {
+        padding: 5px;
+    }
+    QHeaderView::section {
+        background-color: #f1f5f9;
+        color: #475569;
+        font-weight: bold;
+        border: none;
+        padding: 6px;
+    }
+   </string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QHBoxLayout" name="horizontalLayout_main">
+    <property name="spacing">
+     <number>0</number>
+    </property>
+    <property name="leftMargin">
+     <number>0</number>
+    </property>
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <property name="rightMargin">
+     <number>0</number>
+    </property>
+    <property name="bottomMargin">
+     <number>0</number>
+    </property>
+    <item>
+     <widget class="QFrame" name="widgetSidebar">
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_sidebar">
+       <property name="spacing">
+        <number>4</number>
+       </property>
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>20</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>20</number>
+       </property>
+       <item>
+        <layout class="QVBoxLayout" name="layoutLogo">
+         <property name="spacing">
+          <number>2</number>
+         </property>
+         <property name="leftMargin">
+          <number>20</number>
+         </property>
+         <property name="rightMargin">
+          <number>20</number>
+         </property>
+         <property name="bottomMargin">
+          <number>15</number>
+         </property>
+         <item alignment="Qt::AlignHCenter">
+          <widget class="QLabel" name="lblSidebarLogo">
+           <property name="minimumSize">
+            <size>
+             <width>56</width>
+             <height>56</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>56</width>
+             <height>56</height>
+            </size>
+           </property>
+           <property name="font">
+            <font>
+             <pointsize>22</pointsize>
+            </font>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+           <property name="text">
+            <string>🛍️</string>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">
+             #lblSidebarLogo {
+                 background: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 #a855f7, stop:1 #ec4899);
+                 border-radius: 28px;
+                 margin-bottom: 6px;
+             }
+            </string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="lblSidebarTitle">
+           <property name="text">
+            <string>LIVE SALE MANAGER</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="lblSidebarSubtitle">
+           <property name="text">
+            <string>Hệ thống Quản lý Live Stream</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="QFrame" name="lineSidebarDivider">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>1</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>1</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: rgba(255, 255, 255, 30); margin: 0px 20px;</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btnMenuDashboard">
+         <property name="class" stdset="0">
+          <string>menu-btn</string>
+         </property>
+         <property name="text">
+          <string>📊  Dashboard</string>
+         </property>
+         <property name="checkable">
+          <bool>true</bool>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+         <property name="autoExclusive">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btnMenuSeller">
+         <property name="class" stdset="0">
+          <string>menu-btn</string>
+         </property>
+         <property name="text">
+          <string>👤  Người bán</string>
+         </property>
+         <property name="checkable">
+          <bool>true</bool>
+         </property>
+         <property name="autoExclusive">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btnMenuCustomer">
+         <property name="class" stdset="0">
+          <string>menu-btn</string>
+         </property>
+         <property name="text">
+          <string>👥  Khách hàng</string>
+         </property>
+         <property name="checkable">
+          <bool>true</bool>
+         </property>
+         <property name="autoExclusive">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btnMenuLivestream">
+         <property name="class" stdset="0">
+          <string>menu-btn</string>
+         </property>
+         <property name="text">
+          <string>🎥  Livestream</string>
+         </property>
+         <property name="checkable">
+          <bool>true</bool>
+         </property>
+         <property name="autoExclusive">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btnMenuProduct">
+         <property name="class" stdset="0">
+          <string>menu-btn</string>
+         </property>
+         <property name="text">
+          <string>📦  Sản phẩm</string>
+         </property>
+         <property name="checkable">
+          <bool>true</bool>
+         </property>
+         <property name="autoExclusive">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btnMenuLivestreamDetail">
+         <property name="class" stdset="0">
+          <string>menu-btn</string>
+         </property>
+         <property name="text">
+          <string>🔍  Chi tiết Livestream</string>
+         </property>
+         <property name="checkable">
+          <bool>true</bool>
+         </property>
+         <property name="autoExclusive">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btnMenuComment">
+         <property name="class" stdset="0">
+          <string>menu-btn</string>
+         </property>
+         <property name="text">
+          <string>💬  Bình luận</string>
+         </property>
+         <property name="checkable">
+          <bool>true</bool>
+         </property>
+         <property name="autoExclusive">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btnMenuOrder">
+         <property name="class" stdset="0">
+          <string>menu-btn</string>
+         </property>
+         <property name="text">
+          <string>🛒  Đơn hàng</string>
+         </property>
+         <property name="checkable">
+          <bool>true</bool>
+         </property>
+         <property name="autoExclusive">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btnMenuOrderDetail">
+         <property name="class" stdset="0">
+          <string>menu-btn</string>
+         </property>
+         <property name="text">
+          <string>📝  Chi tiết đơn hàng</string>
+         </property>
+         <property name="checkable">
+          <bool>true</bool>
+         </property>
+         <property name="autoExclusive">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btnMenuVoucher">
+         <property name="class" stdset="0">
+          <string>menu-btn</string>
+         </property>
+         <property name="text">
+          <string>🎟️  Voucher</string>
+         </property>
+         <property name="checkable">
+          <bool>true</bool>
+         </property>
+         <property name="autoExclusive">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btnMenuPayment">
+         <property name="class" stdset="0">
+          <string>menu-btn</string>
+         </property>
+         <property name="text">
+          <string>💳  Thanh toán</string>
+         </property>
+         <property name="checkable">
+          <bool>true</bool>
+         </property>
+         <property name="autoExclusive">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btnMenuStatistics">
+         <property name="class" stdset="0">
+          <string>menu-btn</string>
+         </property>
+         <property name="text">
+          <string>📈  Thống kê</string>
+         </property>
+         <property name="checkable">
+          <bool>true</bool>
+         </property>
+         <property name="autoExclusive">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="verticalSpacer_sidebar">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Expanding</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btnMenuLogout">
+         <property name="class" stdset="0">
+          <string>menu-btn</string>
+         </property>
+         <property name="text">
+          <string>🚪  Đăng xuất</string>
+         </property>
+         <property name="checkable">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <layout class="QVBoxLayout" name="verticalLayout_content">
+      <property name="spacing">
+       <number>0</number>
+      </property>
+      <item>
+       <widget class="QFrame" name="frameHeader">
+        <property name="frameShape">
+         <enum>QFrame::NoFrame</enum>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout_header">
+         <property name="leftMargin">
+          <number>20</number>
+         </property>
+         <property name="rightMargin">
+          <number>20</number>
+         </property>
+         <item>
+          <widget class="QLabel" name="lblHeaderTitle">
+           <property name="text">
+            <string>Tổng quan Dashboard</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer_header">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeType">
+            <enum>QSizePolicy::Expanding</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QLabel" name="lblUserScope">
+           <property name="text">
+            <string>Xin chào, Administrator (Admin)</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <widget class="QStackedWidget" name="stackedWidget">
+        <widget class="QWidget" name="pageDashboard">
+         <layout class="QVBoxLayout" name="verticalLayout_page">
+          <property name="spacing">
+           <number>20</number>
+          </property>
+          <property name="leftMargin">
+           <number>20</number>
+          </property>
+          <property name="topMargin">
+           <number>20</number>
+          </property>
+          <property name="rightMargin">
+           <number>20</number>
+          </property>
+          <property name="bottomMargin">
+           <number>20</number>
+          </property>
+          <item>
+           <layout class="QHBoxLayout" name="layoutStatsCards">
+            <property name="spacing">
+             <number>15</number>
+            </property>
+            <item>
+             <widget class="QFrame" name="cardCustomer">
+              <property name="class" stdset="0">
+               <string>stats-card</string>
+              </property>
+              <layout class="QHBoxLayout" name="horizontalLayout_card0">
+               <item>
+                <layout class="QVBoxLayout" name="verticalLayout_card0_text">
+                 <item>
+                  <widget class="QLabel" name="lblCardCustomerNum">
+                   <property name="class" stdset="0">
+                    <string>card-num</string>
+                   </property>
+                   <property name="text">
+                    <string>0</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLabel" name="lblCardCustomerTitle">
+                   <property name="class" stdset="0">
+                    <string>card-title</string>
+                   </property>
+                   <property name="text">
+                    <string>Tổng khách hàng</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+               <item>
+                <widget class="QLabel" name="lblCardCustomerIcon">
+                 <property name="class" stdset="0">
+                  <string>card-icon</string>
+                 </property>
+                 <property name="text">
+                  <string>👥</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+            <item>
+             <widget class="QFrame" name="cardLivestream">
+              <property name="class" stdset="0">
+               <string>stats-card</string>
+              </property>
+              <layout class="QHBoxLayout" name="horizontalLayout_card1">
+               <item>
+                <layout class="QVBoxLayout" name="verticalLayout_card1_text">
+                 <item>
+                  <widget class="QLabel" name="lblCardLivestreamNum">
+                   <property name="class" stdset="0">
+                    <string>card-num</string>
+                   </property>
+                   <property name="text">
+                    <string>12</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLabel" name="lblCardLivestreamTitle">
+                   <property name="class" stdset="0">
+                    <string>card-title</string>
+                   </property>
+                   <property name="text">
+                    <string>Tổng Livestream</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+               <item>
+                <widget class="QLabel" name="lblCardLivestreamIcon">
+                 <property name="class" stdset="0">
+                  <string>card-icon</string>
+                 </property>
+                 <property name="text">
+                  <string>🎥</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+            <item>
+             <widget class="QFrame" name="cardProduct">
+              <property name="class" stdset="0">
+               <string>stats-card</string>
+              </property>
+              <layout class="QHBoxLayout" name="horizontalLayout_card2">
+               <item>
+                <layout class="QVBoxLayout" name="verticalLayout_card2_text">
+                 <item>
+                  <widget class="QLabel" name="lblCardProductNum">
+                   <property name="class" stdset="0">
+                    <string>card-num</string>
+                   </property>
+                   <property name="text">
+                    <string>245</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLabel" name="lblCardProductTitle">
+                   <property name="class" stdset="0">
+                    <string>card-title</string>
+                   </property>
+                   <property name="text">
+                    <string>Tổng sản phẩm</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+               <item>
+                <widget class="QLabel" name="lblCardProductIcon">
+                 <property name="class" stdset="0">
+                  <string>card-icon</string>
+                 </property>
+                 <property name="text">
+                  <string>📦</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+            <item>
+             <widget class="QFrame" name="cardOrder">
+              <property name="class" stdset="0">
+               <string>stats-card</string>
+              </property>
+              <layout class="QHBoxLayout" name="horizontalLayout_card3">
+               <item>
+                <layout class="QVBoxLayout" name="verticalLayout_card3_text">
+                 <item>
+                  <widget class="QLabel" name="lblCardOrderNum">
+                   <property name="class" stdset="0">
+                    <string>card-num</string>
+                   </property>
+                   <property name="text">
+                    <string>1,840</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLabel" name="lblCardOrderTitle">
+                   <property name="class" stdset="0">
+                    <string>card-title</string>
+                   </property>
+                   <property name="text">
+                    <string>Tổng đơn hàng</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+               <item>
+                <widget class="QLabel" name="lblCardOrderIcon">
+                 <property name="class" stdset="0">
+                  <string>card-icon</string>
+                 </property>
+                 <property name="text">
+                  <string>🛒</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+            <item>
+             <widget class="QFrame" name="cardRevenue">
+              <property name="class" stdset="0">
+               <string>stats-card</string>
+              </property>
+              <layout class="QHBoxLayout" name="horizontalLayout_card4">
+               <item>
+                <layout class="QVBoxLayout" name="verticalLayout_card4_text">
+                 <item>
+                  <widget class="QLabel" name="lblCardRevenueNum">
+                   <property name="class" stdset="0">
+                    <string>card-num</string>
+                   </property>
+                   <property name="text">
+                    <string>152.8M</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLabel" name="lblCardRevenueTitle">
+                   <property name="class" stdset="0">
+                    <string>card-title</string>
+                   </property>
+                   <property name="text">
+                    <string>Doanh thu (VND)</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+               <item>
+                <widget class="QLabel" name="lblCardRevenueIcon">
+                 <property name="class" stdset="0">
+                  <string>card-icon</string>
+                 </property>
+                 <property name="text">
+                  <string>💰</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+            <item>
+             <widget class="QFrame" name="cardVoucher">
+              <property name="class" stdset="0">
+               <string>stats-card</string>
+              </property>
+              <layout class="QHBoxLayout" name="horizontalLayout_card5">
+               <item>
+                <layout class="QVBoxLayout" name="verticalLayout_card5_text">
+                 <item>
+                  <widget class="QLabel" name="lblCardVoucherNum">
+                   <property name="class" stdset="0">
+                    <string>card-num</string>
+                   </property>
+                   <property name="text">
+                    <string>8</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLabel" name="lblCardVoucherTitle">
+                   <property name="class" stdset="0">
+                    <string>card-title</string>
+                   </property>
+                   <property name="text">
+                    <string>Voucher hoạt động</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+               <item>
+                <widget class="QLabel" name="lblCardVoucherIcon">
+                 <property name="class" stdset="0">
+                  <string>card-icon</string>
+                 </property>
+                 <property name="text">
+                  <string>🎟️</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="layoutCharts">
+            <property name="spacing">
+             <number>20</number>
+            </property>
+            <item>
+             <widget class="QFrame" name="frameRevenueChart">
+              <property name="styleSheet">
+               <string notr="true">
+                #frameRevenueChart {
+                    background-color: #ffffff;
+                    border: 1px solid #e2e8f0;
+                    border-radius: 12px;
+                }
+               </string>
+              </property>
+              <layout class="QVBoxLayout" name="verticalLayout_chart1">
+               <item>
+                <widget class="QLabel" name="lblChart1Title">
+                 <property name="font">
+                  <font>
+                   <weight>75</weight>
+                   <bold>true</bold>
+                  </font>
+                 </property>
+                 <property name="text">
+                  <string>📈 Thống kê Doanh thu (VND)</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="lblChart1Placeholder">
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                 <property name="text">
+                  <string>[Biểu đồ doanh thu - QChart hoặc Ảnh minh họa thống kê doanh thu theo thời gian]</string>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">color: #94a3b8; font-size: 11px;</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+            <item>
+             <widget class="QFrame" name="frameOrderChart">
+              <property name="styleSheet">
+               <string notr="true">
+                #frameOrderChart {
+                    background-color: #ffffff;
+                    border: 1px solid #e2e8f0;
+                    border-radius: 12px;
+                }
+               </string>
+              </property>
+              <layout class="QVBoxLayout" name="verticalLayout_chart2">
+               <item>
+                <widget class="QLabel" name="lblChart2Title">
+                 <property name="font">
+                  <font>
+                   <weight>75</weight>
+                   <bold>true</bold>
+                  </font>
+                 </property>
+                 <property name="text">
+                  <string>📊 Thống kê Số đơn hàng</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="lblChart2Placeholder">
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                 <property name="text">
+                  <string>[Biểu đồ đơn hàng - QChart hoặc Ảnh thống kê lượng đơn]</string>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">color: #94a3b8; font-size: 11px;</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="layoutTables">
+            <property name="spacing">
+             <number>20</number>
+            </property>
+            <item>
+             <layout class="QVBoxLayout" name="verticalLayout_table1">
+              <item>
+               <widget class="QLabel" name="lblTable1Header">
+                <property name="font">
+                 <font>
+                  <weight>75</weight>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>🔥 Top sản phẩm bán chạy nhất</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QTableWidget" name="tblTopProducts">
+                <column>
+                 <property name="text">
+                  <string>Mã SP</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>Tên sản phẩm</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>Giá bán (VND)</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>Đã bán</string>
+                 </property>
+                </column>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QVBoxLayout" name="verticalLayout_table2">
+              <item>
+               <widget class="QLabel" name="lblTable2Header">
+                <property name="font">
+                 <font>
+                  <weight>75</weight>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>🔴 Livestream đang diễn ra</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QTableWidget" name="tblActiveLivestreams">
+                <column>
+                 <property name="text">
+                  <string>Mã Live</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>Tiêu đề Live</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>Người bán/KOL</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>Trạng thái</string>
+                 </property>
+                </column>
+               </widget>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

@@ -1,0 +1,537 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>StatisticsWidget</class>
+ <widget class="QWidget" name="StatisticsWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1000</width>
+    <height>650</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Báo cáo Thống kê doanh thu</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">
+    QWidget {
+        background: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 #f5f3ff, stop:0.5 #fdf4ff, stop:1 #fff7ed);
+        font-family: &quot;Segoe UI&quot;;
+    }
+    QLabel#lblTitle {
+        font-size: 18px;
+        font-weight: bold;
+        color: #7c3aed;
+    }
+    QLabel#lblSubtitle {
+        color: #64748b;
+        font-size: 12px;
+    }
+    QGroupBox {
+        font-weight: bold;
+        color: #1e293b;
+        border: 1px solid #e9d5ff;
+        border-radius: 8px;
+        margin-top: 10px;
+        padding-top: 15px;
+        background-color: #ffffff;
+    }
+    QGroupBox::title {
+        subcontrol-origin: margin;
+        subcontrol-position: top left;
+        left: 15px;
+        padding: 0 5px;
+    }
+    QFrame#cardRevenue, QFrame#cardOrders, QFrame#cardAvgValue {
+        background-color: #ffffff;
+        border: 1px solid #e9d5ff;
+        border-radius: 8px;
+    }
+    QFrame#cardRevenue { border-left: 4px solid #7c3aed; }
+    QFrame#cardOrders { border-left: 4px solid #ec4899; }
+    QFrame#cardAvgValue { border-left: 4px solid #fb923c; }
+    QLabel.lblCardTitle {
+        color: #64748b;
+        font-size: 13px;
+        font-weight: 500;
+    }
+    QLabel.lblCardValue {
+        color: #7c3aed;
+        font-size: 20px;
+        font-weight: bold;
+    }
+    QDateEdit {
+        border: 1px solid #cbd5e1;
+        border-radius: 6px;
+        padding: 6px 10px;
+        font-size: 13px;
+        color: #334155;
+        background-color: #ffffff;
+    }
+    QDateEdit:focus {
+        border: 2px solid #a855f7;
+    }
+    QPushButton {
+        border-radius: 6px;
+        font-weight: 500;
+        font-size: 13px;
+        padding: 8px 15px;
+        height: 34px;
+    }
+    QPushButton#btnFilter {
+        background: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 #7c3aed, stop:1 #ec4899);
+        color: #ffffff;
+        border: none;
+    }
+    QPushButton#btnFilter:hover {
+        background: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 #6d28d9, stop:1 #db2777);
+    }
+    QPushButton#btnRefresh, QPushButton#btnXuatExcel {
+        background-color: #ffffff;
+        border: 1px solid #cbd5e1;
+        color: #475569;
+    }
+    QPushButton#btnRefresh:hover, QPushButton#btnXuatExcel:hover {
+        background-color: #f1f5f9;
+        color: #1e293b;
+    }
+    QTableWidget {
+        background-color: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        gridline-color: #f1f5f9;
+    }
+    QHeaderView::section {
+        background: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 #7c3aed, stop:1 #ec4899);
+        color: #ffffff;
+        font-weight: bold;
+        font-size: 12px;
+        border: none;
+        padding: 8px;
+    }
+    QTableWidget::item:selected {
+        background-color: #f3e8ff;
+        color: #7c3aed;
+    }
+    QFrame#frameChart {
+        background-color: #ffffff;
+        border: 1px solid #e9d5ff;
+        border-radius: 8px;
+    }
+   </string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout_main">
+   <property name="spacing">
+    <number>12</number>
+   </property>
+   <property name="leftMargin">
+    <number>20</number>
+   </property>
+   <property name="topMargin">
+    <number>20</number>
+   </property>
+   <property name="rightMargin">
+    <number>20</number>
+   </property>
+   <property name="bottomMargin">
+    <number>20</number>
+   </property>
+   <item>
+    <layout class="QHBoxLayout" name="layoutHeader">
+     <item>
+      <widget class="QLabel" name="lblIconBadge">
+       <property name="minimumSize">
+        <size>
+         <width>44</width>
+         <height>44</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>44</width>
+         <height>44</height>
+        </size>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>18</pointsize>
+        </font>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+       <property name="text">
+        <string>📈</string>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">
+         #lblIconBadge {
+             background: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 #a855f7, stop:1 #ec4899);
+             border-radius: 22px;
+             color: #ffffff;
+         }
+        </string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <layout class="QVBoxLayout" name="verticalLayout_title">
+       <property name="spacing">
+        <number>2</number>
+       </property>
+       <item>
+        <widget class="QLabel" name="lblTitle">
+         <property name="text">
+          <string>THỐNG KÊ DOANH THU &amp; ĐƠN HÀNG (STATISTICS)</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="lblSubtitle">
+         <property name="text">
+          <string>Báo cáo doanh số livestream bán hàng, số hóa đơn tạo, và giá trị giao dịch trung bình theo thời gian</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer_header">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeType">
+        <enum>QSizePolicy::Expanding</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="layoutFilters">
+       <property name="spacing">
+        <number>8</number>
+       </property>
+       <item>
+        <widget class="QLabel" name="lblTuNgay">
+         <property name="text">
+          <string>Từ ngày:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QDateEdit" name="dateStart">
+         <property name="calendarPopup">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="lblDenNgay">
+         <property name="text">
+          <string>Đến:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QDateEdit" name="dateEnd">
+         <property name="calendarPopup">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btnFilter">
+         <property name="text">
+          <string>🔍 Lọc báo cáo</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btnRefresh">
+         <property name="text">
+          <string>🔄 Làm mới</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="layoutSummaryCards">
+     <property name="spacing">
+      <number>15</number>
+     </property>
+     <item>
+      <widget class="QFrame" name="cardRevenue">
+       <layout class="QVBoxLayout" name="verticalLayout_cardRev">
+        <property name="spacing">
+         <number>5</number>
+        </property>
+        <property name="leftMargin">
+         <number>15</number>
+        </property>
+        <property name="topMargin">
+         <number>12</number>
+        </property>
+        <property name="rightMargin">
+         <number>15</number>
+        </property>
+        <property name="bottomMargin">
+         <number>12</number>
+        </property>
+        <item>
+         <widget class="QLabel" name="lblCardRevTitle">
+          <property name="text">
+           <string>💰 TỔNG DOANH THU</string>
+          </property>
+          <property name="class" stdset="0">
+           <string>lblCardTitle</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="lblTotalRevenue">
+          <property name="text">
+           <string>0 VNĐ</string>
+          </property>
+          <property name="class" stdset="0">
+           <string>lblCardValue</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <widget class="QFrame" name="cardOrders">
+       <layout class="QVBoxLayout" name="verticalLayout_cardOrd">
+        <property name="spacing">
+         <number>5</number>
+        </property>
+        <property name="leftMargin">
+         <number>15</number>
+        </property>
+        <property name="topMargin">
+         <number>12</number>
+        </property>
+        <property name="rightMargin">
+         <number>15</number>
+        </property>
+        <property name="bottomMargin">
+         <number>12</number>
+        </property>
+        <item>
+         <widget class="QLabel" name="lblCardOrdTitle">
+          <property name="text">
+           <string>📦 TỔNG ĐƠN ĐẶT HÀNG</string>
+          </property>
+          <property name="class" stdset="0">
+           <string>lblCardTitle</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="lblTotalOrders">
+          <property name="text">
+           <string>0 đơn đặt</string>
+          </property>
+          <property name="class" stdset="0">
+           <string>lblCardValue</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <widget class="QFrame" name="cardAvgValue">
+       <layout class="QVBoxLayout" name="verticalLayout_cardAvg">
+        <property name="spacing">
+         <number>5</number>
+        </property>
+        <property name="leftMargin">
+         <number>15</number>
+        </property>
+        <property name="topMargin">
+         <number>12</number>
+        </property>
+        <property name="rightMargin">
+         <number>15</number>
+        </property>
+        <property name="bottomMargin">
+         <number>12</number>
+        </property>
+        <item>
+         <widget class="QLabel" name="lblCardAvgTitle">
+          <property name="text">
+           <string>📈 GIÁ TRỊ ĐƠN TRUNG BÌNH</string>
+          </property>
+          <property name="class" stdset="0">
+           <string>lblCardTitle</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="lblAvgOrderValue">
+          <property name="text">
+           <string>0 VNĐ</string>
+          </property>
+          <property name="class" stdset="0">
+           <string>lblCardValue</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="layoutReports">
+     <property name="spacing">
+      <number>15</number>
+     </property>
+     <item>
+      <layout class="QVBoxLayout" name="verticalLayout_table">
+       <property name="spacing">
+        <number>5</number>
+       </property>
+       <item>
+        <widget class="QLabel" name="lblTableTitle">
+         <property name="text">
+          <string>Doanh thu chi tiết theo từng Livestream</string>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">font-weight: bold; color: #334155; font-size: 13px;</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QTableWidget" name="tblStatistics">
+         <column>
+          <property name="text">
+           <string>Mã Stream</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Tiêu Đề Livestream</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Người Bán</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Doanh Thu (VND)</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Số Đơn Đặt</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Sản Phẩm Đã Bán</string>
+          </property>
+         </column>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QVBoxLayout" name="verticalLayout_chart">
+       <property name="spacing">
+        <number>5</number>
+       </property>
+       <item>
+        <widget class="QLabel" name="lblChartTitle">
+         <property name="text">
+          <string>Biểu đồ trực quan hóa doanh số</string>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">font-weight: bold; color: #334155; font-size: 13px;</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QFrame" name="frameChart">
+         <property name="minimumSize">
+          <size>
+           <width>400</width>
+           <height>0</height>
+          </size>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_innerChart">
+          <item>
+           <widget class="QLabel" name="lblChartPlaceholder">
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+            <property name="text">
+             <string>[ Biểu đồ thống kê hình cột &amp; hình tròn sẽ được hiển thị khi chạy ứng dụng ]</string>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">color: #94a3b8; font-style: italic; font-size: 12px;</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="layoutFooterActions">
+     <item>
+      <spacer name="horizontalSpacer_footer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeType">
+        <enum>QSizePolicy::Expanding</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btnXuatExcel">
+       <property name="text">
+        <string>📈 Xuất Báo Cáo Excel</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QLabel" name="lblStatus">
+     <property name="text">
+      <string>Trạng thái: Đã tải báo cáo mới nhất</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: #64748b; font-size: 11px; font-weight: 500;</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

@@ -1,0 +1,508 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>SellerWidget</class>
+ <widget class="QWidget" name="SellerWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>900</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Quản lý Người bán</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">
+    QWidget {
+        background: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 #f5f3ff, stop:0.5 #fdf4ff, stop:1 #fff7ed);
+        font-family: &quot;Segoe UI&quot;;
+    }
+    QLabel#lblTitle {
+        font-size: 18px;
+        font-weight: bold;
+        color: #7c3aed;
+    }
+    QLabel#lblSubtitle {
+        color: #64748b;
+        font-size: 12px;
+    }
+    QGroupBox {
+        font-weight: bold;
+        color: #1e293b;
+        border: 1px solid #e9d5ff;
+        border-radius: 8px;
+        margin-top: 12px;
+        padding-top: 15px;
+        background-color: #ffffff;
+    }
+    QGroupBox::title {
+        subcontrol-origin: margin;
+        subcontrol-position: top left;
+        left: 15px;
+        padding: 0 5px;
+    }
+    QLineEdit {
+        border: 1px solid #cbd5e1;
+        border-radius: 6px;
+        padding: 8px 10px;
+        font-size: 13px;
+        color: #334155;
+        background-color: #ffffff;
+    }
+    QLineEdit:focus {
+        border: 2px solid #a855f7;
+    }
+    QPushButton {
+        border-radius: 6px;
+        font-weight: 500;
+        font-size: 13px;
+        padding: 8px 15px;
+        height: 34px;
+    }
+    QPushButton#btnSearch, QPushButton#btnLuu {
+        background: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 #7c3aed, stop:1 #ec4899);
+        color: #ffffff;
+        border: none;
+    }
+    QPushButton#btnSearch:hover, QPushButton#btnLuu:hover {
+        background: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 #6d28d9, stop:1 #db2777);
+    }
+    QPushButton#btnThem {
+        background-color: #10b981;
+        color: #ffffff;
+        border: none;
+    }
+    QPushButton#btnThem:hover {
+        background-color: #059669;
+    }
+    QPushButton#btnSua {
+        background-color: #f59e0b;
+        color: #ffffff;
+        border: none;
+    }
+    QPushButton#btnSua:hover {
+        background-color: #d97706;
+    }
+    QPushButton#btnXoa {
+        background-color: #ef4444;
+        color: #ffffff;
+        border: none;
+    }
+    QPushButton#btnXoa:hover {
+        background-color: #dc2626;
+    }
+    QPushButton#btnRefresh, QPushButton#btnHuy, QPushButton#btnXuatExcel {
+        background-color: #ffffff;
+        border: 1px solid #cbd5e1;
+        color: #475569;
+    }
+    QPushButton#btnRefresh:hover, QPushButton#btnHuy:hover, QPushButton#btnXuatExcel:hover {
+        background-color: #f1f5f9;
+        color: #1e293b;
+    }
+    QTableWidget {
+        background-color: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        gridline-color: #f1f5f9;
+    }
+    QHeaderView::section {
+        background: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 #7c3aed, stop:1 #ec4899);
+        color: #ffffff;
+        font-weight: bold;
+        font-size: 12px;
+        border: none;
+        padding: 8px;
+    }
+    QTableWidget::item:selected {
+        background-color: #f3e8ff;
+        color: #7c3aed;
+    }
+   </string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout_main">
+   <property name="spacing">
+    <number>15</number>
+   </property>
+   <property name="leftMargin">
+    <number>20</number>
+   </property>
+   <property name="topMargin">
+    <number>20</number>
+   </property>
+   <property name="rightMargin">
+    <number>20</number>
+   </property>
+   <property name="bottomMargin">
+    <number>20</number>
+   </property>
+   <item>
+    <layout class="QHBoxLayout" name="layoutHeader">
+     <item>
+      <widget class="QLabel" name="lblIconBadge">
+       <property name="minimumSize">
+        <size>
+         <width>44</width>
+         <height>44</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>44</width>
+         <height>44</height>
+        </size>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>18</pointsize>
+        </font>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+       <property name="text">
+        <string>👤</string>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">
+         #lblIconBadge {
+             background: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 #a855f7, stop:1 #ec4899);
+             border-radius: 22px;
+             color: #ffffff;
+         }
+        </string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <layout class="QVBoxLayout" name="verticalLayout_title">
+       <property name="spacing">
+        <number>2</number>
+       </property>
+       <item>
+        <widget class="QLabel" name="lblTitle">
+         <property name="text">
+          <string>QUẢN LÝ NGƯỜI BÁN (SELLER)</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="lblSubtitle">
+         <property name="text">
+          <string>Quản lý tài khoản người bán và thông tin gian hàng livestream</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer_header">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeType">
+        <enum>QSizePolicy::Expanding</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="layoutSearch">
+       <property name="spacing">
+        <number>6</number>
+       </property>
+       <item>
+        <widget class="QLineEdit" name="txtSearch">
+         <property name="minimumSize">
+          <size>
+           <width>200</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="placeholderText">
+          <string>Tìm kiếm theo tên, shop...</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btnSearch">
+         <property name="text">
+          <string>🔍 Tìm kiếm</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btnRefresh">
+         <property name="text">
+          <string>🔄 Làm mới</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="layoutBody">
+     <property name="spacing">
+      <number>15</number>
+     </property>
+     <item>
+      <widget class="QGroupBox" name="grpSellerForm">
+       <property name="minimumSize">
+        <size>
+         <width>320</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>350</width>
+         <height>16777215</height>
+        </size>
+       </property>
+       <property name="title">
+        <string>Thông tin người bán</string>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_form">
+        <property name="spacing">
+         <number>12</number>
+        </property>
+        <property name="leftMargin">
+         <number>15</number>
+        </property>
+        <property name="topMargin">
+         <number>15</number>
+        </property>
+        <property name="rightMargin">
+         <number>15</number>
+        </property>
+        <property name="bottomMargin">
+         <number>15</number>
+        </property>
+        <item>
+         <layout class="QVBoxLayout" name="verticalLayout_name">
+          <property name="spacing">
+           <number>4</number>
+          </property>
+          <item>
+           <widget class="QLabel" name="lblTenNguoiBan">
+            <property name="text">
+             <string>Tên người bán:</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="txtTenNguoiBan"/>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="verticalLayout_phone">
+          <property name="spacing">
+           <number>4</number>
+          </property>
+          <item>
+           <widget class="QLabel" name="lblSoDienThoai">
+            <property name="text">
+             <string>Số điện thoại:</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="txtSoDienThoai"/>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="verticalLayout_email">
+          <property name="spacing">
+           <number>4</number>
+          </property>
+          <item>
+           <widget class="QLabel" name="lblEmail">
+            <property name="text">
+             <string>Email:</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="txtEmail"/>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="verticalLayout_password">
+          <property name="spacing">
+           <number>4</number>
+          </property>
+          <item>
+           <widget class="QLabel" name="lblMatKhau">
+            <property name="text">
+             <string>Mật khẩu đăng nhập:</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="txtMatKhau">
+            <property name="echoMode">
+             <enum>QLineEdit::Password</enum>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="verticalLayout_shop">
+          <property name="spacing">
+           <number>4</number>
+          </property>
+          <item>
+           <widget class="QLabel" name="lblTenShop">
+            <property name="text">
+             <string>Tên Shop / Gian hàng:</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="txtTenShop"/>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <spacer name="verticalSpacer_form">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Expanding</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <widget class="QTableWidget" name="tblSeller">
+       <column>
+        <property name="text">
+         <string>Mã Người Bán</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>Tên Người Bán</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>Số Điện Thoại</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>Email</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>Tên Shop</string>
+        </property>
+       </column>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="layoutActions">
+     <property name="spacing">
+      <number>10</number>
+     </property>
+     <item>
+      <widget class="QPushButton" name="btnThem">
+       <property name="text">
+        <string>➕ Thêm mới</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btnSua">
+       <property name="text">
+        <string>✏️ Sửa đổi</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btnXoa">
+       <property name="text">
+        <string>🗑️ Xóa bỏ</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer_actions">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeType">
+        <enum>QSizePolicy::Expanding</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btnLuu">
+       <property name="text">
+        <string>💾 Lưu lại</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btnHuy">
+       <property name="text">
+        <string>❌ Hủy bỏ</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btnXuatExcel">
+       <property name="text">
+        <string>📥 Xuất Excel</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QLabel" name="lblStatus">
+     <property name="text">
+      <string>Trạng thái: Sẵn sàng</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: #64748b; font-size: 11px; font-weight: 500;</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
